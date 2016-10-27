@@ -38,7 +38,7 @@ tests_require = [
 ]
 
 setup(
-    name='jenkins-slave-toolbox',
+    name='jk-toolbox',
     version=find_version("jk_toolbox", "__init__.py"),
     description='DNT dcos CICD service jenkins slave toolbox.',
     url='https://www.docker.com/',

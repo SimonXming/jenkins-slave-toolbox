@@ -32,7 +32,8 @@ class DockerService(object):
             'username': username,
             'password': '{}{}'.format(self.PREFIX, token)
         })
-
+        if not image_name:
+            return
         tracer = LayerTracer()
         try:
             for pull_status in self.cli.push(image_name, stream=True, auth_config=self.docker_auth):

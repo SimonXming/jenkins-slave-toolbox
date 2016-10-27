@@ -28,8 +28,8 @@ def find_version(*file_paths):
 
 
 install_requires = [
-    'docopt >= 0.6.1, < 0.7',
-    'docker-py >= 1.10.2, < 1.10.4',
+    'docopt==0.6.2',
+    'docker-py==1.10.2',
 ]
 
 

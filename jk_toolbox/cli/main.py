@@ -111,11 +111,11 @@ class TopLevelCommand(object):
             --token=TOKEN               specify token for pull
             --image_name=IMAGE_NAME     specify image name for pull
         """
-        username = options("--username", None)
-        token = options("--token", None)
+        username = options.get("--username", None)
+        token = options.get("--token", None)
         image_name = options.get("--image_name", None)
         if not image_name:
-            log.error("Not provide image_name", getdoc(self))
+            log.error("Not provide image_name: \n\n%s", getdoc(self.pull))
 
         self.service.docker.pull(
             username=username,
@@ -134,11 +134,11 @@ class TopLevelCommand(object):
             --token=TOKEN               specify token for pull
             --image_name=IMAGE_NAME     specify image name for pull
         """
-        username = options("--username", None)
-        token = options("--token", None)
+        username = options.get("--username", None)
+        token = options.get("--token", None)
         image_name = options.get("--image_name", None)
         if not image_name:
-            log.error("Not provide image_name", getdoc(self))
+            log.error("Not provide image_name: \n\n%s", getdoc(self.push))
 
         self.service.docker.push(
             username=username,

@@ -4,6 +4,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import os
 import re
 import sys
 import logging
@@ -78,6 +79,7 @@ class TopLevelCommand(object):
 
     Commands:
       help               Get help on a command
+      connect            jenkins slave connect to master
       pull               Pull service images
       push               Push service images
       version            Show the Docker-Compose version information
@@ -99,6 +101,31 @@ class TopLevelCommand(object):
             subject = cls
 
         print(getdoc(subject))
+
+    def connect(self, options):
+        """
+        Jenkins slave connect to master.
+
+        Usage: connect
+
+        """
+        try:
+            jenkins_url = os.environ['JENKINS_URL']
+            slave_name = os.environ['JENKINS_SLAVE_NAME']
+            jnlp_token = os.environ['JENKINS_JNLP_TOKEN']
+        except KeyError as e:
+            log.error("No Environment value found: {}".format(e))
+            return
+
+        jar_path = "/usr/share/jenkins/slave.jar"
+        jnlp_url = "http://{}/computer/{}/slave-agent.jnlp".format(jenkins_url, slave_name)
+
+        connect_command = "java -jar {} -jnlpUrl {} -jnlpCredentials {}".format(
+            jar_path,
+            jnlp_url,
+            jnlp_token
+        )
+        os.system(connect_command)
 
     def pull(self, options):
         """
